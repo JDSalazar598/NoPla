@@ -9,6 +9,7 @@ function getData(){
     fetch(url).then(function(response){
         return response.json();
     }).then(function(Data){
+        alert(JSON.stringify(Data));
         console.log(Data);
     })
 }
