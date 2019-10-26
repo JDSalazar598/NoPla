@@ -1,0 +1,82 @@
+
+<div class="col-12 bg-white">
+    <div class="row shadow p-4">
+        <div class="col-6 text-left">
+            <h5><strong>Administracion de Puestos:</strong></h5>
+        </div>            
+        <div class="col-6 text-left">
+            <input class="form-control" placeholder="Buscar">
+        </div>
+    </div>
+    <!--panel donde se mostraran los puestos agregados-->
+    <div id="contenido" class="row  bg-light-opac">
+    </div>  
+    <!--modal para crear o acutalizar un nuevo puesto-->
+    <div class="modal fade" id="Mdpuesto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content shadow">
+                <div class="modal-header bg-white shadow">
+                    <h5 class="modal-title" id="exampleModalLabel">Informacion del puesto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12">
+                        <form id="frmpuesto">
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    <label for="descripcion">Descripcion:</label>
+                                    <input name="descripcion" required autocomplete="off" id="descripcion" placeholder="Descripcion" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    <label for="salario">Salario:</label>
+                                    <input name="salario" type="number" required autocomplete="off" id="salario" placeholder="0.00" class="form-control">
+                                    <input name="idpuesto" id="idpuesto" hidden value="0">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col text-right"><br>
+                                    <button type="reset" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>       
+                                    <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar</button>                        
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal para eliminar un puesto-->
+    <div class="modal fade" id="MdDeletepuesto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content shadow">
+                    <div class="modal-header bg-white shadow">
+                        <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col">
+                                    <h6>Esta seguro que desea eliminar este puesto?</h6>
+                                    <input id="ide" hidden>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-right"><br>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> No</button>       
+                                    <button id="btneliminar" onclick="eliminar()" type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Si</button>                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<script src="../js/puestos.js"></script>

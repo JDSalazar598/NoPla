@@ -2,14 +2,7 @@ $('#adminUsuarios').click(function(){
     $('#pnPrincipal').load('../vistas/usuarios.html');
 });
 
-getData();
+$('#adminPuestos').click(function(){
+    $('#pnPrincipal').load('../vistas/puestos.html');
+});
 
-function getData(){
-    var url = 'https://localhost:44375/api/values';
-    fetch(url).then(function(response){
-        return response.json();
-    }).then(function(Data){
-        alert(JSON.stringify(Data));
-        console.log(Data);
-    })
-}
