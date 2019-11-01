@@ -20,22 +20,79 @@
 </head>
 
 <body class="bg-dark">
-
   <div class="d-flex" id="wrapper">
     <!-- Sidebar -->   
     <div class="text-white bg-dark" id="sidebar-wrapper" style="height: auto;">
       <div class="sidebar-heading text-center">
-           Nomina y Planilla
-          <div class="col bg-success" style="height: 3px; margin-top: 10px"></div>
-      </div>
-      <div class="list-group list-group-flush">
-        <a href="#" id="adminUsuarios" class="list-group-item text-white list-group-item-action bg-dark">Usuarios <i class="fa fa-user"></i></a>
-        <a href="#" class="list-group-item text-white list-group-item-action bg-dark">Empleados</a>
-        <a href="#" id="adminPuestos" class="list-group-item text-white  list-group-item-action bg-dark">Puestos</a>
-        <a href="#" class="list-group-item text-white list-group-item-action bg-dark">Events</a>
-        <a href="#" class="list-group-item text-white  list-group-item-action bg-dark">Profile</a>
-        <a href="#" class="list-group-item text-white  list-group-item-action bg-dark">Status</a>
-      </div>
+          <i class="fa fa-book"></i> Nomina y Planilla
+          <div class="col" style="height: 3px; background: cyan; margin-top: 10px"></div>
+      </div>     
+      <div class="accordion  list-group bg-dark" id="accordionExample">
+          <div class="card bg-dark">
+            <div class="card-header p-1" id="headingOne">
+              <h2 class="mb-0">
+                <button class="btn btnh p-3 btn-dark btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                   <h6 class="mb-0">Administracion</h6>
+                </button>
+              </h2>
+            </div>
+        
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body bg-white p-1">
+                <div class="list-group list-group-flush">
+                    <a href="#" id="adminUsuarios" class="list-group-item text-white list-group-item-action bg-dark"><i class="fa fa-user"></i>  Usuarios</a>
+                    <a href="#" class="list-group-item text-white list-group-item-action bg-dark"><i class="fa fa-user"></i> Empleados</a>
+                    <a href="#" id="adminPuestos" class="list-group-item text-white  list-group-item-action bg-dark"><i class="fa fa-user"></i> Puestos</a>
+                    <a href="#" id="adminEmpresas" class="list-group-item text-white list-group-item-action bg-dark"><i class="fa fa-user"></i> Empresas</a>
+                    <a href="#" class="list-group-item text-white  list-group-item-action bg-dark"><i class="fa fa-user"></i> Profile</a>
+                    <a href="#" class="list-group-item text-white  list-group-item-action bg-dark"><i class="fa fa-user"></i> Status</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card bg-dark">
+            <div class="card-header p-1" id="headingTwo">
+              <h2 class="mb-0">
+                <button class="btn  btnh p-3 btn-dark btn-block btnh text-left"  type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <h6 class="mb-0">Procesos</h6>
+                </button>
+              </h2>
+            </div>
+            <div id="collapseTwo" class="collapse bg" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body bg-white p-1">
+                    <div class="list-group list-group-flush">
+                        <a href="#" id="adminUsuarios" class="list-group-item text-white list-group-item-action bg-dark"><i class="fa fa-user"></i>  Usuarios</a>
+                        <a href="#" class="list-group-item text-white list-group-item-action bg-dark">Empleados</a>
+                        <a href="#" id="adminPuestos" class="list-group-item text-white  list-group-item-action bg-dark">Puestos</a>
+                        <a href="#" class="list-group-item text-white list-group-item-action bg-dark">Events</a>
+                        <a href="#" class="list-group-item text-white  list-group-item-action bg-dark">Profile</a>
+                        <a href="#" class="list-group-item text-white  list-group-item-action bg-dark">Status</a>
+                    </div>
+                  </div>
+            </div>
+          </div>
+          <div class="card bg-dark">
+            <div class="card-header p-1" id="headingThree">
+              <h2 class="mb-0">
+                <button class="btn p-3 btn-dark btn-block text-left"  type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <h6 class="mb-0">Reportes</h6>
+                </button>
+              </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+              <div class="card-body bg-white p-1">              
+                  <div class="list-group list-group-flush">
+                      <a href="#" id="adminUsuarios" class="list-group-item text-white list-group-item-action bg-dark"><i class="fa fa-user"></i>  Usuarios</a>
+                      <a href="#" class="list-group-item text-white list-group-item-action bg-dark">Empleados</a>
+                      <a href="#" id="adminPuestos" class="list-group-item text-white  list-group-item-action bg-dark">Puestos</a>
+                      <a href="#" class="list-group-item text-white list-group-item-action bg-dark">Events</a>
+                      <a href="#" class="list-group-item text-white  list-group-item-action bg-dark">Profile</a>
+                      <a href="#" class="list-group-item text-white  list-group-item-action bg-dark">Status</a>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
     <!-- /#sidebar-wrapper -->
 
@@ -70,9 +127,7 @@
       </nav>
 
       <div class="container-fluid card bg-white shadow p-3" id="pnPrincipal" style="height: auto; min-height: 90%;">
-        <h1 class="mt-4">Simple Sidebar</h1>
-        <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
+        <!--Panel donde se cargan los modulos-->
       </div>
     </div>
     <!-- /#page-content-wrapper -->

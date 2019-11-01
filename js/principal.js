@@ -6,3 +6,6 @@ $('#adminPuestos').click(function(){
     $('#pnPrincipal').load('../vistas/puestos.html');
 });
 
+$('#adminEmpresas').click(function(){
+    $('#pnPrincipal').load('../vistas/empresas.html');
+});

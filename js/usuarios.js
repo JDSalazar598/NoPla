@@ -1,11 +1,15 @@
 //url para consumir la api
-var url = 'https://localhost:44303/api/puesto';
+var urlu = 'https://localhost:44303/api/usuario';
 
 //url para definir los metodos personalizados a base de rutas
-var urlsearch = 'https://localhost:44303/api/puesto/search';
+var urlsearch = 'https://localhost:44303/api/usuario/search';
+var urltipos = 'https://localhost:44303/api/usuario/tipos';
+var urlempresas = 'https://localhost:44303/api/usuario/empresas';
 
 //llamada al metodo para mostrar los datos
 getData();
+gettipos();
+getEmpresas();
 
 //convertir formulario a json
 (function ($) {
@@ -29,10 +33,10 @@ getData();
 })(jQuery);
 
 //variable utilizada para almacenar los puestos 
-var puestos = [];
+var us = [];
 
 //variable utilizada para acceder al formulario 
-var form  = document.getElementById('frmpuesto');
+var formu  = document.getElementById('FrmUsuario');
 
 //arreglo de colores para cards y para botones
 var colors = [{color:"bg-success"}, {color: "bg-dark"}, {color : "bg-info"}];      
@@ -45,29 +49,31 @@ var bgbuttons = [
 *mostraran los datos almacenados */
 var contenido = document.querySelector('#contenido');
 var msj = document.querySelector('#msj');
+var tipos = document.querySelector('#tipoUsuario');
+var emp = document.querySelector('#empresaIdempresa');
+
 /*metodo utilizado para obtener los puestos almacenados */
 function getData(){
-    fetch(url).then(res => res.json())
+    fetch(urlu).then(res => res.json())
     .then(data => {
         var i = 0;
         var e = 0;
         var count = 1;
-        puestos = data;
+        us = data;
         contenido.innerHTML = ""
         for(let d of data){     
             contenido.innerHTML += `
-                <div class="col-12 col-md-6  col-lg-4 p-2">
+                <div class="col-12 col-md-6 col-lg-4 p-2">
                     <div class="card bg-transparent">
                         <div class="card-body  ${colors[i].color} text-left text-white shadow">
                             <div class="col-12"><br>
-                                <h6><strong>${count}) ${d.descripcion}</strong></h6>
+                                <h6><strong>${count}) ${d.nombres} ${d.apellidos}</strong></h6>
                                 <p>
-                                    <strong>  Salario:</strong> Q.${d.salario}
+                                    <strong>  Tipo:</strong> ${d.tipo}
                                 </p>
-                                <span hidden id="idpuestot" hidden>${d.idpuesto}</span>
                             </div>
                             <div class="col-12 text-right">
-                                <button  data-toggle="tooltip" data-placement="bottom" title="Eliminar" onclick="showModalDelete(${d.idpuesto})" class="btn ${bgbuttons[i].color1}">
+                                <button  data-toggle="tooltip" data-placement="bottom" title="Eliminar" onclick="showModalDelete(${d.idusuario})" class="btn ${bgbuttons[i].color1}">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                                 <button  data-toggle="tooltip" data-placement="bottom" title="Editar" onclick="sendDataForm(${e})" class="btn ${bgbuttons[i].color2}">
@@ -102,33 +108,31 @@ function getData(){
                 </div>
             </div>
         `
-         $('#Mdpuesto').modal('hide');
-         $('#MdDeletepuesto').modal('hide');
+         $('#MdUsuario').modal('hide');
+         $('#MdDeleteusuario').modal('hide');
     });
 }
 
-
 /* toma y envia los datos del formulario */
-form.addEventListener('submit', function(e){
+formu.addEventListener('submit', function(e){
     e.preventDefault();
     
     var data = $(this).serializeFormJSON();
 
     var method = "POST";
 
-    if(data.idpuesto > 0){
+    if(data.idusuario > 0){
         method = "PUT";
     }
 
-    action(url,data,method);
+    action(urlu,data,method);
 });
-
 
 /*metodo utilizado para crear un nuevo puesto */
 function action(url, data, metodo){
     var mensaje =  "";
     //deshabilitar boton
-    $('#btng').attr('disabled',true);
+    $('#btngu').attr('disabled',true);
     //ejecuta el metodo 
     fetch(url,  {
         method: metodo,
@@ -142,7 +146,7 @@ function action(url, data, metodo){
             $('#msj').html("!Datos almacenados exitosamente");
             $('.toast').toast('show');
             getData();
-            $('#btng').attr('disabled',false);
+            $('#btngu').attr('disabled',false);
             return response.json;
         }else{
             alert("No se pudo insertar");
@@ -156,8 +160,9 @@ function action(url, data, metodo){
 /*metodo utilizado para mostrar la modal que contiene el formulario 
 para crear nuevos puestos */
 function showModal(){
-    $('#frmpuesto').trigger('reset');
-    $('#Mdpuesto').modal('show');
+    $('#cp').attr('hidden',false);
+    $('#FrmUsuario').trigger('reset');
+    $('#MdUsuario').modal('show');
 }
 
 /*metodo utilizado para mostrar la modal para eliminar un puesto */
@@ -168,10 +173,11 @@ function showModalDelete(id){
 
 /*metodo utilizado para enviar los datos al formulario para actualizar el puesto */
 function sendDataForm(i){
-    $('#Mdpuesto').modal('show');
-    for(var key in puestos[i]){
-        $('#'+key).val(puestos[i][key]);
+    $('#MdUsuario').modal('show');
+    for(var key in us[i]){
+        $('#'+key).val(us[i][key]);
     }
+    $('#cpassword').val(us[i].password);
 }
 
 /*metodo utilizado para eliminar un puesto */
@@ -203,7 +209,7 @@ $('#search').keyup(function(){
     console.log($(this).val());
     fetch(urlsearch, {
         method: 'POST',
-        body : JSON.stringify({descripcion: $(this).val()}),
+        body : JSON.stringify({Nombres: $(this).val()}),
         headers: {
             "Accept" : "application/json",
             "Content-Type": "application/json"
@@ -220,17 +226,16 @@ $('#search').keyup(function(){
                     <div class="card bg-transparent">
                         <div class="card-body  ${colors[i].color} text-left text-white shadow">
                             <div class="col-12"><br>
-                                <h6><strong>${count}) ${d.descripcion}</strong></h6>
+                                <h6><strong>${count}) ${d.nombres} ${d.apellidos}</strong></h6>
                                 <p>
-                                    <strong>  Salario:</strong> Q.${d.salario}
+                                    <strong>  Tipo:</strong> ${d.tipo}
                                 </p>
-                                <span hidden id="idpuestot" hidden>${d.idpuesto}</span>
                             </div>
                             <div class="col-12 text-right">
-                                <button onclick="showModalDelete(${d.idpuesto})" class="btn ${bgbuttons[i].color1}">
+                                <button  data-toggle="tooltip" data-placement="bottom" title="Eliminar" onclick="showModalDelete(${d.idusuario})" class="btn ${bgbuttons[i].color1}">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
-                                <button onclick="sendDataForm(${e})" class="btn ${bgbuttons[i].color2}">
+                                <button  data-toggle="tooltip" data-placement="bottom" title="Editar" onclick="sendDataForm(${e})" class="btn ${bgbuttons[i].color2}">
                                 <i class="fas fa-pen"></i>
                                 </button>
                             </div>
@@ -267,3 +272,39 @@ $('#search').keyup(function(){
     });
 });
 
+/*metodo utilizado para obtener los tipos de usuario */
+function gettipos(){
+    fetch(urltipos).then(res => res.json())
+    .then(data => {
+        tipos.innerHTML = `
+             <option value="0">Seleccionar</option>
+        `
+        for(let d of data){    
+            tipos.innerHTML += `
+                <option value="${d.idtipo}">${d.descripcion}</option>
+            `
+        }      
+    });
+}
+
+/* metodo utilizado para obtener las empresas */
+function getEmpresas(){
+    fetch(urlempresas).then(res => res.json())
+    .then(data => {
+        usuarios = data;
+        emp.innerHTML = `
+           <option value="0">Seleccionar</option>
+        `
+        for(let d of data){     
+            emp.innerHTML += `
+                <option value="${d.idempresa}">${d.nombre}</option>
+            `
+        }
+    });
+}
+
+/*limpiar input password */
+$('#password').click(function(){
+    $(this).val("");
+    $('#cpassword').val("");
+})
