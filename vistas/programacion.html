@@ -1,50 +1,53 @@
-
-    <script src="../js/empresas.js"></script>
-    <div class="col-12 bg-white">
+<div class="col-12 bg-white">
         <div class="row shadow p-4">
             <div class="col-6 text-left">
-                <h5 class="text-dark">Administracion de Empresas:</h5>
-                <small class="text-secondary">Crea, actualiza y elimina empresas</small>
+                <h5 class="text-dark">Programacion de asistencias:</h5>
+                <small class="text-secondary">Programa tus asistencias personalizadas!</small>
             </div>            
             <div class="col-6 text-left">
                 <input id="search" autocomplete="off" class="form-control my-2" placeholder="Buscar">
             </div>
         </div>
-        <!--panel donde se mostraran los usuario agregados-->
+        <!--panel donde se mostraran los empleado agregados-->
         <div id="contenido" class="row  bg-light-opac">
         </div>  
-        <!--modal para crear o acutalizar un nuevo usuario-->
-        <div class="modal fade" id="Mdempresa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content shadow">
+        <!--modal para crear o acutalizar un nuevo empleado-->
+        <div class="modal fade" id="Mdprogramacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content shadow">
                     <div class="modal-header bg-white shadow">
-                        <h5 class="modal-title" id="exampleModalLabel">Informacion del Usuario</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Informacion de la inasistencia</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="col-12">
-                            <form id="frmempresa">
+                            <form id="Frmprogramacion">
                                 <div class="form-row">
                                     <div class="form-group col">
-                                        <label for="nombre">Nombre:</label>
-                                        <input name="nombre" required autocomplete="off" id="nombre" placeholder="Nombre" class="form-control">
+                                        <input id="idprogramacion" value="0" name="idprogramacion" hidden>
+                                        <label for="descripcion">Descripcion:</label>
+                                        <input name="descripcion" type="text" required autocomplete="off" id="descripcion" placeholder="descripcion" class="form-control">
                                     </div>
-                                </div>
+                                </div>                                                 
                                 <div class="form-row">
                                     <div class="form-group col">
-                                        <label for="direccion">Direccion:</label>
-                                        <input name="direccion" required autocomplete="off" id="direccion" placeholder="Direccion" class="form-control">
+                                        <label for="iddepto">Fecha:</label>
+                                        <input id="fecha" class="form-control" autocomplete="off" type="text" name="fecha">
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="form-row">
+                                    <input id="idprogramacion" hidden value="0">
                                     <div class="form-group col">
-                                        <label for="telefono">Telefono:</label>
-                                        <input name="telefono" type="number" required autocomplete="off" id="telefono" placeholder="Telefono" class="form-control">
+                                        <label for="motivo">Hora inicio:</label>
+                                        <input name="horaInicio" class="form-control" id="horaInicio" placeholder="HH:MM">
+                                    </div>                                    
+                                    <div class="form-group col">
+                                        <label for="motivo">Hora Fin:</label>
+                                        <input name="horaFin" class="form-control" id="horaFin" placeholder="HH:MM">
                                     </div>
-                                    <input name="idempresa" id="idempresa" value="0" hidden>
-                                </div>     
+                                </div>       
                                 <div class="form-row">
                                     <div class="form-group col text-right"><br>
                                         <button type="reset"  class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>       
@@ -57,8 +60,8 @@
                 </div>
             </div>
         </div>
-        <!--Modal para eliminar un usuario-->
-        <div class="modal fade" id="MdDeleteempresa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!--Modal para eliminar un empleado-->
+        <div class="modal fade" id="MdDeleteprogramacion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content shadow">
                     <div class="modal-header bg-white shadow">
@@ -71,7 +74,7 @@
                         <div class="col-12">
                             <div class="row">
                                 <div class="col">
-                                    <h6>Esta seguro que desea eliminar esta empresa?</h6>
+                                    <h6>Esta seguro que desea eliminar esta programacion?</h6>
                                     <input id="ide" hidden>
                                 </div>
                             </div>
@@ -87,12 +90,12 @@
             </div>
         </div>
         <!--toast para mostrar los mensajes-->
-        <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+        <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 150px;">
             <!-- Position it -->
             <div style="position: absolute; top: 0; right: 0;">        
                 <!-- Then put toasts within -->
-                <div class="toast bg-dark" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
-                    <div class="toast-header bg-dark shadow text-white">
+                <div class="toast bg-success shadow" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+                    <div class="toast-header bg-success shadow text-white">
                         <img src="..." class="rounded mr-2" alt="...">
                         <strong class="mr-auto">Informacion</strong>
                         <small class="text-muted"> 1 seg</small>
@@ -100,10 +103,14 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="toast-body text-white" id="msj">
+                    <div class="toast-body text-white p-4 shadow" id="msj">
                         
                     </div><br>
                 </div>
             </div>
         </div>
     </div>
+    
+    <script src="../JQuery/moment.min.js"></script>
+    <script src="../JQuery/daterangepicker.js"></script>
+    <script src="../js/programacion.js"></script>

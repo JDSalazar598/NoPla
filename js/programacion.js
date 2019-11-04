@@ -1,15 +1,25 @@
+
+//fecha ingreso
+$(function() {
+    $('input[name="fecha"]').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        locale:{
+            format: 'YYYY-MM-DD'
+        }
+    });
+});
+
+
+
 //url para consumir la api
-var urlu = 'https://localhost:44386/api/usuario';
+var urlu = 'https://localhost:44386/api/programacion';
 
 //url para definir los metodos personalizados a base de rutas
-var urlsearch = 'https://localhost:44386/api/usuario/search';
-var urltipos = 'https://localhost:44386/api/usuario/tipos';
-var urlempresas = 'https://localhost:44386/api/usuario/empresas';
+var urlsearch = 'https://localhost:44386/api/programacion/Search';
 
 //llamada al metodo para mostrar los datos
 getData();
-gettipos();
-getEmpresas();
 
 //convertir formulario a json
 (function ($) {
@@ -36,7 +46,7 @@ getEmpresas();
 var us = [];
 
 //variable utilizada para acceder al formulario 
-var formu  = document.getElementById('FrmUsuario');
+var formu  = document.getElementById('Frmprogramacion');
 
 //arreglo de colores para cards y para botones
 var colors = [{color:"bg-success"}, {color: "bg-dark"}, {color : "bg-info"}];      
@@ -49,10 +59,8 @@ var bgbuttons = [
 *mostraran los datos almacenados */
 var contenido = document.querySelector('#contenido');
 var msj = document.querySelector('#msj');
-var tipos = document.querySelector('#tipoUsuario');
-var emp = document.querySelector('#empresaIdempresa');
-
-/*metodo utilizado para obtener los puestos almacenados */
+var idempleado = document.querySelector('#idempleado');
+/*metodo utilizado para obtener los programacions almacenados */
 function getData(){
     fetch(urlu).then(res => res.json())
     .then(data => {
@@ -60,6 +68,7 @@ function getData(){
         var e = 0;
         var count = 1;
         us = data;
+        console.log(data);
         contenido.innerHTML = ""
         for(let d of data){     
             contenido.innerHTML += `
@@ -67,13 +76,13 @@ function getData(){
                     <div class="card bg-transparent">
                         <div class="card-body  ${colors[i].color} text-left text-white shadow">
                             <div class="col-12"><br>
-                                <h6><strong>${count}) ${d.nombres} ${d.apellidos}</strong></h6>
+                                <h6>${count}) ${d.descripcion}</h6>
                                 <p>
-                                    <strong>  Tipo:</strong> ${d.tipo}
+                                    ${d.fecha}
                                 </p>
                             </div>
                             <div class="col-12 text-right">
-                                <button  data-toggle="tooltip" data-placement="bottom" title="Eliminar" onclick="showModalDelete(${d.idusuario})" class="btn ${bgbuttons[i].color1}">
+                                <button  data-toggle="tooltip" data-placement="bottom" title="Eliminar" onclick="showModalDelete(${d.idprogramacion})" class="btn ${bgbuttons[i].color1}">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                                 <button  data-toggle="tooltip" data-placement="bottom" title="Editar" onclick="sendDataForm(${e})" class="btn ${bgbuttons[i].color2}">
@@ -108,8 +117,8 @@ function getData(){
                 </div>
             </div>
         `
-         $('#MdUsuario').modal('hide');
-         $('#MdDeleteusuario').modal('hide');
+         $('#Mdprogramacion').modal('hide');
+         $('#MdDeleteprogramacion').modal('hide');
     });
 }
 
@@ -121,7 +130,7 @@ formu.addEventListener('submit', function(e){
 
     var method = "POST";
 
-    if(data.idusuario > 0){
+    if(data.idprogramacion > 0){
         method = "PUT";
     }
 
@@ -160,20 +169,19 @@ function action(url, data, metodo){
 /*metodo utilizado para mostrar la modal que contiene el formulario 
 para crear nuevos puestos */
 function showModal(){
-    $('#cp').attr('hidden',false);
-    $('#FrmUsuario').trigger('reset');
-    $('#MdUsuario').modal('show');
+    $('#Frmprogramacion').trigger('reset');
+    $('#Mdprogramacion').modal('show');
 }
 
 /*metodo utilizado para mostrar la modal para eliminar un puesto */
 function showModalDelete(id){
     $('#ide').val(id);
-    $('#MdDeleteusuario').modal('show');
+    $('#MdDeleteprogramacion').modal('show');
 }
 
 /*metodo utilizado para enviar los datos al formulario para actualizar el puesto */
 function sendDataForm(i){
-    $('#MdUsuario').modal('show');
+    $('#Mdprogramacion').modal('show');
     for(var key in us[i]){
         $('#'+key).val(us[i][key]);
     }
@@ -184,7 +192,7 @@ function sendDataForm(i){
 function eliminar(){
     fetch(urlu, {
         method: 'DELETE',
-        body : JSON.stringify({idusuario: $('#ide').val()}),
+        body : JSON.stringify({idprogramacion: $('#ide').val()}),
         headers: {
             "Accept" : "application/json",
             "Content-Type": "application/json"
@@ -209,7 +217,7 @@ $('#search').keyup(function(){
     console.log($(this).val());
     fetch(urlsearch, {
         method: 'POST',
-        body : JSON.stringify({Nombres: $(this).val()}),
+        body : JSON.stringify({descripcion: $(this).val()}),
         headers: {
             "Accept" : "application/json",
             "Content-Type": "application/json"
@@ -220,19 +228,19 @@ $('#search').keyup(function(){
         var e = 0;
         var count = 1;
         contenido.innerHTML = ""
-        for(let d of data){     
+        for(let d of data){
             contenido.innerHTML += `
                 <div class="col-12 col-md-6  col-lg-4 p-2">
                     <div class="card bg-transparent">
                         <div class="card-body  ${colors[i].color} text-left text-white shadow">
                             <div class="col-12"><br>
-                                <h6><strong>${count}) ${d.nombres} ${d.apellidos}</strong></h6>
+                                <h6><strong>${count}) ${d.descripcion}</strong></h6>
                                 <p>
-                                    <strong>  Tipo:</strong> ${d.tipo}
+                                    ${d.fecha}
                                 </p>
                             </div>
                             <div class="col-12 text-right">
-                                <button  data-toggle="tooltip" data-placement="bottom" title="Eliminar" onclick="showModalDelete(${d.idusuario})" class="btn ${bgbuttons[i].color1}">
+                                <button  data-toggle="tooltip" data-placement="bottom" title="Eliminar" onclick="showModalDelete(${d.idprogramacion})" class="btn ${bgbuttons[i].color1}">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                                 <button  data-toggle="tooltip" data-placement="bottom" title="Editar" onclick="sendDataForm(${e})" class="btn ${bgbuttons[i].color2}">
@@ -272,39 +280,9 @@ $('#search').keyup(function(){
     });
 });
 
-/*metodo utilizado para obtener los tipos de usuario */
-function gettipos(){
-    fetch(urltipos).then(res => res.json())
-    .then(data => {
-        tipos.innerHTML = `
-             <option value="0">Seleccionar</option>
-        `
-        for(let d of data){    
-            tipos.innerHTML += `
-                <option value="${d.idtipo}">${d.descripcion}</option>
-            `
-        }      
-    });
-}
-
-/* metodo utilizado para obtener las empresas */
-function getEmpresas(){
-    fetch(urlempresas).then(res => res.json())
-    .then(data => {
-        usuarios = data;
-        emp.innerHTML = `
-           <option value="0">Seleccionar</option>
-        `
-        for(let d of data){     
-            emp.innerHTML += `
-                <option value="${d.idempresa}">${d.nombre}</option>
-            `
-        }
-    });
-}
-
 /*limpiar input password */
 $('#password').click(function(){
     $(this).val("");
     $('#cpassword').val("");
 })
+

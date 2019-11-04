@@ -1,41 +1,34 @@
-
 <div class="col-12 bg-white">
     <div class="row shadow p-4">
         <div class="col-6 text-left">
-            <h5 class="text-dark">Administracion de Puestos:</h5>
-            <small class="text-secondary">Crea, actualiza y elimina puestos para tu empresa!</small>
+            <h5 class="text-dark">Administracion de departamentos laborales:</h5>
+            <small class="text-secondary">Crea, actualiza y elimina departamentos!</small>
         </div>            
         <div class="col-6 text-left">
             <input id="search" autocomplete="off" class="form-control my-2" placeholder="Buscar">
         </div>
     </div>
-    <!--panel donde se mostraran los puestos agregados-->
+    <!--panel donde se mostraran los deptos agregados-->
     <div id="contenido" class="row  bg-light-opac">
     </div>  
-    <!--modal para crear o acutalizar un nuevo puesto-->
-    <div class="modal fade" id="Mdpuesto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--modal para crear o acutalizar un nuevo depto-->
+    <div class="modal fade" id="Mddepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content shadow">
                 <div class="modal-header bg-white shadow">
-                    <h5 class="modal-title" id="exampleModalLabel">Informacion del puesto</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Informacion del depto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="col-12">
-                        <form id="frmpuesto">
+                        <form id="frmdepto">
                             <div class="form-row">
                                 <div class="form-group col">
                                     <label for="descripcion">Descripcion:</label>
                                     <input name="descripcion" required autocomplete="off" id="descripcion" placeholder="Descripcion" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col">
-                                    <label for="salario">Salario:</label>
-                                    <input name="salario" type="number" required autocomplete="off" id="salario" placeholder="0.00" class="form-control">
-                                    <input name="idpuesto" id="idpuesto" hidden value="0">
+                                    <input name="iddepto" value="0" id="iddepto" hidden/>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -50,8 +43,8 @@
             </div>
         </div>
     </div>
-    <!--Modal para eliminar un puesto-->
-    <div class="modal fade" id="MdDeletepuesto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--Modal para eliminar un depto-->
+    <div class="modal fade" id="MdDeletedepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content shadow">
                 <div class="modal-header bg-white shadow">
@@ -64,7 +57,7 @@
                     <div class="col-12">
                         <div class="row">
                             <div class="col">
-                                <h6>Esta seguro que desea eliminar este puesto?</h6>
+                                <h6>Esta seguro que desea eliminar este departamento?</h6>
                                 <input id="ide" hidden>
                             </div>
                         </div>
@@ -84,8 +77,8 @@
         <!-- Position it -->
         <div style="position: absolute; top: 0; right: 0;">        
             <!-- Then put toasts within -->
-            <div class="toast bg-dark" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
-                <div class="toast-header bg-dark text-white">
+            <div class="toast bg-success" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+                <div class="toast-header bg-success text-white">
                     <img src="..." class="rounded mr-2" alt="...">
                     <strong class="mr-auto">Informacion</strong>
                     <small class="text-muted"></small>
@@ -100,4 +93,4 @@
         </div>
     </div>
 </div>
-<script src="../js/puestos.js"></script>
+<script src="../js/deptos.js"></script>

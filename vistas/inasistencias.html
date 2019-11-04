@@ -1,70 +1,59 @@
-
-    <script src="../js/usuarios.js"></script>
 <div class="col-12 bg-white">
     <div class="row shadow p-4">
         <div class="col-6 text-left">
-            <h5 class="text-dark">Administracion de Usuarios:</h5>
-            <small class="text-secondary">Crea, actualiza y elimina usuarios!</small>
+            <h5 class="text-dark">Control de Inasistencias:</h5>
+            <small class="text-secondary">Deshabilita empleados temporalmente!</small>
         </div>            
         <div class="col-6 text-left">
             <input id="search" autocomplete="off" class="form-control my-2" placeholder="Buscar">
         </div>
     </div>
-    <!--panel donde se mostraran los usuario agregados-->
+    <!--panel donde se mostraran los empleado agregados-->
     <div id="contenido" class="row  bg-light-opac">
     </div>  
-    <!--modal para crear o acutalizar un nuevo usuario-->
-    <div class="modal fade" id="MdUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content shadow">
+    <!--modal para crear o acutalizar un nuevo empleado-->
+    <div class="modal fade" id="Mdempleado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content shadow">
                 <div class="modal-header bg-white shadow">
-                    <h5 class="modal-title" id="exampleModalLabel">Informacion del Usuario</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Informacion de la inasistencia</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="col-12">
-                        <form id="FrmUsuario">
+                        <form id="Frminasistencias">
                             <div class="form-row">
                                 <div class="form-group col">
-                                    <label for="nombres">Nombres:</label>
-                                    <input name="nombres" required autocomplete="off" id="nombres" placeholder="Nombres" class="form-control">
-                                </div>
-                                <div class="form-group col">
-                                    <label for="apellidos">Apellidos:</label>
-                                    <input name="apellidos" type="text" required autocomplete="off" id="apellidos" placeholder="Apellidos" class="form-control">
-                                    <input name="idusuario" id="idusuario" hidden value="0">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col">
-                                    <label for="usuario">Usuario:</label>
-                                    <input name="usuario1" required autocomplete="off" id="usuario1" placeholder="Usuario" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col">
-                                    <label for="password">Password:</label>
-                                    <input name="password" type="password" required autocomplete="off" id="password" placeholder="****" class="form-control">
-                                </div>
-                                <div class="form-group col" id="cp">
-                                    <label for="cpassword">Confirmar Password:</label>
-                                    <input name="cpassword" type="password"  autocomplete="off" id="cpassword" placeholder="*****" class="form-control">
-                                </div>
-                            </div>                                
-                            <div class="form-row">
-                                <div class="form-group col">
-                                    <label for="nombres">Tipo:</label>
-                                    <select required class="form-control" id="tipoUsuario" name="tipoUsuario">
-                                    </select>
-                                </div>
-                                <div class="form-group col">
-                                    <label for="apellidos">Empresa:</label>
-                                    <select required class="form-control" id="empresaIdempresa" name="empresaIdempresa">
+                                    <label for="idempleado">Empleado:</label>
+                                    <select required class="form-control" id="idempleado" name="idempleado">
                                     </select>                                            
                                 </div>
-                            </div>
+                            </div>                                               
+                            <div class="form-row">
+                                    <div class="form-group col">
+                                        <label for="iddepto">Fecha Inicio:</label>
+                                        <input id="fechaInicio" class="form-control" autocomplete="off" type="text" name="fechaInicio">
+                                    </div>
+                                    <div class="form-group col">
+                                        <label for="iddepto">Fecha Fin:</label>
+                                        <input id="fechaFin" class="form-control" autocomplete="off" type="text" name="fechaFin">
+                                    </div>
+                                </div>
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    <label for="descripcion">Descripcion:</label>
+                                    <input name="descripcion" type="text" required autocomplete="off" id="descripcion" placeholder="descripcion" class="form-control">
+                                </div>
+                            </div>      
+                            <div class="form-row">
+                                <input id="idinasitencia" name="idinasitencia" hidden value="0">
+                                <div class="form-group col">
+                                    <label for="motivo">Motivo</label>
+                                    <textarea name="motivo" class="form-control" id="motivo" rows="3"></textarea>
+                                </div>
+                            </div>       
                             <div class="form-row">
                                 <div class="form-group col text-right"><br>
                                     <button type="reset"  class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cancelar</button>       
@@ -77,8 +66,8 @@
             </div>
         </div>
     </div>
-    <!--Modal para eliminar un usuario-->
-    <div class="modal fade" id="MdDeleteusuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--Modal para eliminar un empleado-->
+    <div class="modal fade" id="MdDeleteinasistencias" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content shadow">
                 <div class="modal-header bg-white shadow">
@@ -91,7 +80,7 @@
                     <div class="col-12">
                         <div class="row">
                             <div class="col">
-                                <h6>Esta seguro que desea eliminar este puesto?</h6>
+                                <h6>Esta seguro que desea eliminar este inasistencia?</h6>
                                 <input id="ide" hidden>
                             </div>
                         </div>
@@ -127,3 +116,7 @@
         </div>
     </div>
 </div>
+
+<script src="../JQuery/moment.min.js"></script>
+<script src="../JQuery/daterangepicker.js"></script>
+<script src="../js/inasistencias.js"></script>

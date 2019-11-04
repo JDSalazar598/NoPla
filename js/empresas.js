@@ -1,8 +1,8 @@
 //url para consumir la api
-var url = 'https://localhost:44303/api/puesto';
+var url = 'https://localhost:44386/api/empresa';
 
 //url para definir los metodos personalizados a base de rutas
-var urlsearch = 'https://localhost:44303/api/puesto/search';
+var urlsearch = 'https://localhost:44386/api/empresa/search';
 
 //llamada al metodo para mostrar los datos
 getData();
@@ -28,11 +28,11 @@ getData();
     };
 })(jQuery);
 
-//variable utilizada para almacenar los puestos 
-var puestos = [];
+//variable utilizada para almacenar los empresas 
+var empresas = [];
 
 //variable utilizada para acceder al formulario 
-var form  = document.getElementById('frmpuesto');
+var form  = document.getElementById('frmempresa');
 
 //arreglo de colores para cards y para botones
 var colors = [{color:"bg-success"}, {color: "bg-dark"}, {color : "bg-info"}];      
@@ -45,14 +45,14 @@ var bgbuttons = [
 *mostraran los datos almacenados */
 var contenido = document.querySelector('#contenido');
 var msj = document.querySelector('#msj');
-/*metodo utilizado para obtener los puestos almacenados */
+/*metodo utilizado para obtener los empresas almacenados */
 function getData(){
     fetch(url).then(res => res.json())
     .then(data => {
         var i = 0;
         var e = 0;
         var count = 1;
-        puestos = data;
+        empresas = data;
         contenido.innerHTML = ""
         for(let d of data){     
             contenido.innerHTML += `
@@ -60,14 +60,14 @@ function getData(){
                     <div class="card bg-transparent">
                         <div class="card-body  ${colors[i].color} text-left text-white shadow">
                             <div class="col-12"><br>
-                                <h6><strong>${count}) ${d.descripcion}</strong></h6>
+                                <h6><strong>${count}) ${d.nombre}</strong></h6>
                                 <p>
-                                    <strong>  Salario:</strong> Q.${d.salario}
+                                    <strong>  Telefono:</strong> ${d.telefono}
                                 </p>
-                                <span hidden id="idpuestot" hidden>${d.idpuesto}</span>
+                                <span hidden id="idempresat" hidden>${d.idempresa}</span>
                             </div>
                             <div class="col-12 text-right">
-                                <button  data-toggle="tooltip" data-placement="bottom" title="Eliminar" onclick="showModalDelete(${d.idpuesto})" class="btn ${bgbuttons[i].color1}">
+                                <button  data-toggle="tooltip" data-placement="bottom" title="Eliminar" onclick="showModalDelete(${d.idempresa})" class="btn ${bgbuttons[i].color1}">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                                 <button  data-toggle="tooltip" data-placement="bottom" title="Editar" onclick="sendDataForm(${e})" class="btn ${bgbuttons[i].color2}">
@@ -102,8 +102,8 @@ function getData(){
                 </div>
             </div>
         `
-         $('#Mdpuesto').modal('hide');
-         $('#MdDeletepuesto').modal('hide');
+         $('#Mdempresa').modal('hide');
+         $('#MdDeleteempresa').modal('hide');
     });
 }
 
@@ -115,8 +115,7 @@ form.addEventListener('submit', function(e){
     var data = $(this).serializeFormJSON();
 
     var method = "POST";
-
-    if(data.idpuesto > 0){
+    if(data.idempresa > 0){
         method = "PUT";
     }
 
@@ -124,7 +123,7 @@ form.addEventListener('submit', function(e){
 });
 
 
-/*metodo utilizado para crear un nuevo puesto */
+/*metodo utilizado para crear un nuevo empresa */
 function action(url, data, metodo){
     var mensaje =  "";
     //deshabilitar boton
@@ -154,31 +153,31 @@ function action(url, data, metodo){
 }
 
 /*metodo utilizado para mostrar la modal que contiene el formulario 
-para crear nuevos puestos */
+para crear nuevos empresas */
 function showModal(){
-    $('#frmpuesto').trigger('reset');
-    $('#Mdpuesto').modal('show');
+    $('#frmempresa').trigger('reset');
+    $('#Mdempresa').modal('show');
 }
 
-/*metodo utilizado para mostrar la modal para eliminar un puesto */
+/*metodo utilizado para mostrar la modal para eliminar un empresa */
 function showModalDelete(id){
     $('#ide').val(id);
-    $('#MdDeletepuesto').modal('show');
+    $('#MdDeleteempresa').modal('show');
 }
 
-/*metodo utilizado para enviar los datos al formulario para actualizar el puesto */
+/*metodo utilizado para enviar los datos al formulario para actualizar el empresa */
 function sendDataForm(i){
-    $('#Mdpuesto').modal('show');
-    for(var key in puestos[i]){
-        $('#'+key).val(puestos[i][key]);
+    $('#Mdempresa').modal('show');
+    for(var key in empresas[i]){
+        $('#'+key).val(empresas[i][key]);
     }
 }
 
-/*metodo utilizado para eliminar un puesto */
+/*metodo utilizado para eliminar un empresa */
 function eliminar(){
     fetch(url, {
         method: 'DELETE',
-        body : JSON.stringify({idpuesto: $('#ide').val()}),
+        body : JSON.stringify({idempresa: $('#ide').val()}),
         headers: {
             "Accept" : "application/json",
             "Content-Type": "application/json"
@@ -203,7 +202,7 @@ $('#search').keyup(function(){
     console.log($(this).val());
     fetch(urlsearch, {
         method: 'POST',
-        body : JSON.stringify({descripcion: $(this).val()}),
+        body : JSON.stringify({nombre: $(this).val()}),
         headers: {
             "Accept" : "application/json",
             "Content-Type": "application/json"
@@ -220,14 +219,13 @@ $('#search').keyup(function(){
                     <div class="card bg-transparent">
                         <div class="card-body  ${colors[i].color} text-left text-white shadow">
                             <div class="col-12"><br>
-                                <h6><strong>${count}) ${d.descripcion}</strong></h6>
+                                <h6><strong>${count}) ${d.nombre}</strong></h6>
                                 <p>
-                                    <strong>  Salario:</strong> Q.${d.salario}
+                                    <strong>  Telefono:</strong> ${d.telefono}
                                 </p>
-                                <span hidden id="idpuestot" hidden>${d.idpuesto}</span>
                             </div>
                             <div class="col-12 text-right">
-                                <button onclick="showModalDelete(${d.idpuesto})" class="btn ${bgbuttons[i].color1}">
+                                <button onclick="showModalDelete(${d.idempresa})" class="btn ${bgbuttons[i].color1}">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                                 <button onclick="sendDataForm(${e})" class="btn ${bgbuttons[i].color2}">
@@ -262,8 +260,8 @@ $('#search').keyup(function(){
             </div>
         `
         
-         $('#Mdpuesto').modal('hide');
-         $('#MdDeletepuesto').modal('hide');
+         $('#Mdempresa').modal('hide');
+         $('#MdDeleteempresa').modal('hide');
     });
 });
 

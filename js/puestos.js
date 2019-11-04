@@ -1,8 +1,8 @@
 //url para consumir la api
-var url = 'https://localhost:44303/api/puesto';
+var url = 'https://localhost:44386/api/puesto';
 
 //url para definir los metodos personalizados a base de rutas
-var urlsearch = 'https://localhost:44303/api/puesto/search';
+var urlsearch = 'https://localhost:44386/api/puesto/search';
 
 //llamada al metodo para mostrar los datos
 getData();
